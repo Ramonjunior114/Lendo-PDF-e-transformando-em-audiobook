@@ -1,0 +1,29 @@
+#Lendo PDF e transformando em audiobook com python
+#importe as bibliotecas e caso nao tenha instalado utilize a função pip install (nome da biblioteca que deseja instalar)
+import pyttsx3
+import PyPDF2
+
+#abrindo o livro atraves do diretorio
+#livro utilizado economia para leigos 
+livro = open('/home/kali/Downloads/Economia Para Leigos - Sean Flynn.pdf','rb')
+
+#lendo o pdf
+pdf = PyPDF2.PdfFileReader(livro)
+
+#contando o numero de paginas do livro
+paginas = pdf.numPages
+print(paginas)
+
+#iniciar a biblioteca 
+voz = pyttsx3.init()
+voz.setProperty('rate', 200)
+
+#deternimando a pagina incial que vai comecar a leitura 
+pagina = pdf.getPage(45)
+
+#converter o conteudo da pagina em texto
+texto = pagina.extractText(pagina)
+
+#ler texto
+voz.say(texto)
+voz.runAndWait()
